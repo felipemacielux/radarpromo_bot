@@ -1,0 +1,73 @@
+# Configuração de rate limit, horários e seletores CSS por loja.
+# Seletores são placeholders — precisam ser validados por inspeção real
+# das páginas (DevTools) antes do scraping funcionar de verdade.
+
+filtro:
+  desconto_minimo_pct: 20
+  avaliacao_minima: 4.0
+  dias_sem_repostar: 7
+
+lojas:
+  mercadolivre:
+    ativo: true
+    rate_limit_segundos:
+      min: 3
+      max: 8
+    horarios_execucao: ["08:00", "13:00", "19:00"]
+    url_ofertas: "https://www.mercadolivre.com.br/ofertas"
+    seletores_css:
+      # Validados por inspeção real em 2026-09-08. Selecionar a partir de
+      # cada .poly-card; revalidar se passar a retornar listas vazias.
+      lista_produtos: ".poly-card"
+      titulo: ".poly-component__title"
+      preco_atual: ".poly-price__current .andes-money-amount__fraction"
+      preco_original: "s .andes-money-amount__fraction"
+      avaliacao: ".poly-component__review-compacted .polylabel-label"
+      link: ".poly-component__title"
+
+  shopee:
+    ativo: false
+    rate_limit_segundos:
+      min: 5
+      max: 12
+    horarios_execucao: ["09:00", "20:00"]
+    seletores_css:
+      # TODO: validar via inspeção real da página
+      lista_produtos: ""
+      titulo: ""
+      preco_atual: ""
+      preco_original: ""
+      avaliacao: ""
+      link: ""
+
+  amazon:
+    ativo: false
+    rate_limit_segundos:
+      min: 10
+      max: 20
+    horarios_execucao: ["10:00"]
+    seletores_css:
+      # TODO: validar via inspeção real da página; priorizar PA-API assim
+      # que aprovada, scraping é fallback conservador
+      lista_produtos: ""
+      titulo: ""
+      preco_atual: ""
+      preco_original: ""
+      avaliacao: ""
+      link: ""
+
+  shein:
+    ativo: false
+    rate_limit_segundos:
+      min: 8
+      max: 15
+    horarios_execucao: ["11:00"]
+    seletores_css:
+      # TODO: mapear endpoints internos via DevTools/Network antes de
+      # decidir a abordagem (scraping de DOM vs. endpoints)
+      lista_produtos: ""
+      titulo: ""
+      preco_atual: ""
+      preco_original: ""
+      avaliacao: ""
+      link: ""
